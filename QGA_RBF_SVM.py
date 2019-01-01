@@ -6,7 +6,8 @@ Created on Fri Nov 30 14:34:18 2018
 """
 import numpy as np
 from sklearn import svm
-from sklearn import cross_validation
+#from sklearn import cross_validation
+from sklearn import model_selection # sklearn 高版本使用比如:scikit-learn-0.20.2
 import random
 import math
 import matplotlib.pyplot as plt
@@ -157,7 +158,8 @@ class QGA(object):
         fitness_value = []
         for l in range(len(parameters[0])):
             rbf_svm = svm.SVC(kernel = 'rbf', C = parameters[0][l], gamma = parameters[1][l])
-            cv_scores = cross_validation.cross_val_score(rbf_svm,trainX,trainY,cv =3,scoring = 'accuracy')
+            #cv_scores = cross_validation.cross_val_score(rbf_svm,trainX,trainY,cv =3,scoring = 'accuracy')
+            cv_scores = model_selection.cross_val_score(rbf_svm, trainX, trainY, cv=3, scoring='accuracy')
             fitness_value.append(cv_scores.mean())
             
         ##3.找到最优的适应度函数值和对应的参数二进制表现形式
